@@ -1,7 +1,8 @@
 #import pandas as pd 
+"""
 from fastapi import FastAPI
 app = FastAPI()
-"""
+
 castDf=pd.read_parquet('cleancastDataframe.parquet.gzip')
 crewDf=pd.read_parquet('cleanCrewDataframe.parquet.gzip')
 movieDf=pd.read_parquet('cleanMovieDataframe.parquet.gzip')
@@ -43,6 +44,18 @@ async def get_director( nombre_director ):
     exito=crewDf.loc[(crewDf['name']==nombre_director) & (crewDf['job']=='Director') ,['revenue']].sum().iloc[0]
     return str(exito),crewDf.loc[(crewDf['name']==nombre_director) & (crewDf['job']=='Director') ,['original_title','release_date','revenue','budget','job']]
 """
+from typing import Union
+
+from fastapi import FastAPI
+
+
+app = FastAPI()
+
 @app.get("/")
-async def getmsg():
-    return "hola"
+def read_root():
+    return "Te Amo mi Negrita Todo Saldra Bien"
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
