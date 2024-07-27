@@ -1,12 +1,12 @@
-import pandas as pd 
+#import pandas as pd 
 from fastapi import FastAPI
 app = FastAPI()
-
+"""
 castDf=pd.read_parquet('cleancastDataframe.parquet.gzip')
 crewDf=pd.read_parquet('cleanCrewDataframe.parquet.gzip')
 movieDf=pd.read_parquet('cleanMovieDataframe.parquet.gzip')
-
-
+"""
+"""
 @app.get("/cantidad_filmaciones_mes")
 async def cantidad_filmaciones_mes(month):
     monthEs=str(month).strip()
@@ -42,3 +42,7 @@ async def get_actor( nombre_actor ):
 async def get_director( nombre_director ):
     exito=crewDf.loc[(crewDf['name']==nombre_director) & (crewDf['job']=='Director') ,['revenue']].sum().iloc[0]
     return str(exito),crewDf.loc[(crewDf['name']==nombre_director) & (crewDf['job']=='Director') ,['original_title','release_date','revenue','budget','job']]
+"""
+@app.get("/")
+async def getmsg():
+    return "hola"
